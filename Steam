@@ -26,10 +26,10 @@ for article in soup.find_all('a'):
 #PRICE
     try:
         price = article.find('div', class_='col search_price responsive_secondrow').text.strip()
-        print("Price: ", price) #BLANK LINE AFTER EACH GAME ENTRY
-        print()
-    except:
-        pass
+        print("Price: ", price,"\n")
+    except Exception as e:
+        price = None
+        print("Price: ", price,"\n")
 
 
 
