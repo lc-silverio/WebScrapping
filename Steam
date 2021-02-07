@@ -2,18 +2,36 @@ from bs4 import BeautifulSoup
 import requests
 import csv
 
-source = requests.get(
-    "https://store.steampowered.com/search/?sort_by=Released_DESC&os=win&filter=popularnew").text
+source = requests.get("https://store.steampowered.com/search/?filter=popularnew&sort_by=Released_DESC&os=win").text
 soup = BeautifulSoup(source, 'lxml')
 
-article = soup.find('div')
+#article = soup.find('div')
 
-title = article.find('span', class_='title').text
-print("Title: ", title)
 
-date = article.find(
-    'div', class_='col search_released responsive_secondrow').text
-print("Release date: ", date)
+#GAME TITLE
+for article in soup.find_all('a'):
+    try:
+        title = article.find('span', class_='title').text
+        print("Title: ", title)
+    except:
+        pass
 
-price = article.find('div', class_='col search_price  responsive_secondrow')
-print("Release date: ", price)
+#RELEASE DATE
+    try:
+        date = article.find('div', class_='col search_released responsive_secondrow').text
+        print("Release date: ", date)
+    except:
+        pass
+
+#PRICE
+    try:
+        price = article.find('div', class_='col search_price responsive_secondrow').text.strip()
+        print("Price: ", price) #BLANK LINE AFTER EACH GAME ENTRY
+        print()
+    except:
+        pass
+
+
+
+
+
